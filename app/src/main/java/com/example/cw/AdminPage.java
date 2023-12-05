@@ -13,11 +13,14 @@ public class AdminPage extends AppCompatActivity {
     Button btnRemove;
     Button btnEdit;
     Button btnStats;
+    Button btnBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_page);
+        btnBack = findViewById(R.id.back);
         btnAdd = findViewById(R.id.addSpareBtn);
         btnRemove = findViewById(R.id.removeSpareBtn);
         btnEdit = findViewById(R.id.editSpareBtn);
@@ -62,5 +65,15 @@ public class AdminPage extends AppCompatActivity {
                 finish();
             }
         });
+        //OnClick listener for the back arrow
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }
