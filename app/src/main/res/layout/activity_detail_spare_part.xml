@@ -60,7 +60,7 @@
         app:srcCompat="@drawable/bumper" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location: 12"
@@ -141,8 +141,7 @@
         app:layout_constraintEnd_toStartOf="@+id/changePriceBtn"
         app:layout_constraintHorizontal_bias="0.697"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        app:layout_constraintVertical_bias="0.578" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Button
         android:id="@+id/changePriceBtn"
