@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "193353503069",
+    "project_id": "mdp-cw-2023",
+    "storage_bucket": "mdp-cw-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193353503069:android:f9a471ccb0a4864f5798b4",
+        "android_client_info": {
+          "package_name": "com.example.cw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDswmUX2Z9bwre6DJzzifSl6m_b4ucjh3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
