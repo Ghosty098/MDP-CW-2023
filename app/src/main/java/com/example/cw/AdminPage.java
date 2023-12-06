@@ -41,7 +41,7 @@ public class AdminPage extends AppCompatActivity {
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddSparePart.class); //change this after creation
+                Intent intent = new Intent(getApplicationContext(), RemoveSparePart.class); //change this after creation
                 startActivity(intent);
                 finish();
             }
