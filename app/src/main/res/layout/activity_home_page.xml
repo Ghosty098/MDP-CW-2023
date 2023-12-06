@@ -7,19 +7,18 @@
     tools:context=".HomePage"
     android:background="@color/grey3">
 
-    <Button
+    <ImageButton
         android:id="@+id/admin"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/baseline_account_circle_24"
-        android:text="."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/logOut"
         android:layout_width="48dp"
         android:layout_height="48dp"

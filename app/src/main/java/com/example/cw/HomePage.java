@@ -16,8 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomePage extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button btnLogOut;
-    Button btnAdmin;
+    ImageButton btnLogOut;
+    ImageButton btnAdmin;
     ImageButton btnQr;
     FirebaseUser user;
 
