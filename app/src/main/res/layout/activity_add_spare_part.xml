@@ -187,10 +187,11 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="40dp"
+        android:layout_width="48dp"
         android:layout_height="50dp"
         android:background="@drawable/baseline_minimize_24"
         android:paddingEnd="10dp"
+        android:text="."
         app:layout_constraintBottom_toBottomOf="@+id/textView22"
         app:layout_constraintEnd_toStartOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.236"
@@ -211,10 +212,11 @@
         app:srcCompat="@drawable/admincircle" />
 
     <Button
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/baseline_add_24"
         android:paddingEnd="10dp"
+        android:text="."
         app:layout_constraintBottom_toBottomOf="@+id/textView22"
         app:layout_constraintEnd_toEndOf="@+id/textView22"
         app:layout_constraintHorizontal_bias="0.806"
