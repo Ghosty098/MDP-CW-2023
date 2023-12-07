@@ -5,21 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.List;
-
 public class DetailSparePart extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String sparePartId = "sparePart1";
+    Button btnSold;
+    Long quantity;
 
     ImageButton btnBack;
     TextView textView3, locationTextView, qtyNumberTextView, priceNumberTextView, colourNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class DetailSparePart extends AppCompatActivity {
 
         // Initialize UI components
         btnBack = findViewById(R.id.back);
+        btnSold = findViewById(R.id.soldBtn);
         textView3 = findViewById(R.id.textView3);
         locationTextView = findViewById(R.id.location);
         qtyNumberTextView = findViewById(R.id.qtyNumber);
@@ -54,7 +57,7 @@ public class DetailSparePart extends AppCompatActivity {
                 // Retrieve data
                 String name = documentSnapshot.getString("Name");
                 String location = documentSnapshot.getString("Location");
-                long quantity = documentSnapshot.getLong("Quantity");
+                quantity = documentSnapshot.getLong("Quantity");
                 double price = documentSnapshot.getDouble("Price");
                 String colour = documentSnapshot.getString("Colour");
 
@@ -81,6 +84,33 @@ public class DetailSparePart extends AppCompatActivity {
         });
 
         Log.d("Firestore", "After Firestore retrieval");
+
+        // Set click listener for the "Sold" button
+        btnSold.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Decrease the quantity in Firestore
+                decreaseQuantity(sparePartRef, quantity);
+
+                // Update the displayed quantity in the UI
+                qtyNumberTextView.setText(String.valueOf(quantity - 1));
+            }
+        });
     }
 
+    private void decreaseQuantity(DocumentReference sparePartRef, long currentQuantity) {
+        // Decrease the quantity by 1 in Firestore
+        if (currentQuantity > 0) {
+            sparePartRef.update("Quantity", currentQuantity - 1)
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d("Firestore", "Quantity decreased successfully");
+                        // Handle success if needed
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Error decreasing quantity", e);
+                        // Handle failure if needed
+                    });
+        }
+    }
 }
