@@ -98,7 +98,7 @@
                     android:background="@drawable/bumper" />
 
                 <Button
-                    android:id="@+id/delete1"
+                    android:id="@+id/delete"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="end"
@@ -107,7 +107,6 @@
                     android:background="@drawable/baseline_delete_24"
                     android:text="." />
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="380dp"
                 android:layout_height="100dp"
@@ -148,7 +147,7 @@
                     android:background="@drawable/bumper" />
 
                 <Button
-                    android:id="@+id/delete"
+                    android:id="@+id/delete2"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="end"
