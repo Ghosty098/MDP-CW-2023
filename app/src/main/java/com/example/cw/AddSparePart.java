@@ -7,29 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class AddSparePart extends AppCompatActivity {
 
     ImageButton btnBack;
-    Spinner spinnerCarPart, spinnerColourPart;
-
+    Spinner spinnerColourPart, spinnerQuantity;
+    EditText carPart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_spare_part);
         btnBack = findViewById(R.id.back);
-        spinnerCarPart = findViewById(R.id.carPartSpinner);
         spinnerColourPart = findViewById(R.id.colourPartSpinner);
-
-        ArrayAdapter<CharSequence> adapterPart = ArrayAdapter.createFromResource(
-                this,
-                R.array.car_part_options,
-                android.R.layout.simple_spinner_item
-        );
-        adapterPart.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCarPart.setAdapter(adapterPart);
+        spinnerQuantity = findViewById(R.id.quantitySpinner);
+        carPart = findViewById(R.id.carPart);
 
         ArrayAdapter<CharSequence> adapterColour = ArrayAdapter.createFromResource(
                 this,
@@ -39,6 +33,13 @@ public class AddSparePart extends AppCompatActivity {
         adapterColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerColourPart.setAdapter(adapterColour);
 
+        ArrayAdapter<CharSequence> adapterQuantity = ArrayAdapter.createFromResource(
+                this,
+                R.array.quantity_options,
+                android.R.layout.simple_spinner_item
+        );
+        adapterQuantity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerQuantity.setAdapter(adapterQuantity);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -72,6 +72,7 @@ public class DetailSparePart extends AppCompatActivity {
                 locationTextView.setText("Location: " + location);
                 qtyNumberTextView.setText(String.valueOf(quantity));
                 priceNumberTextView.setText("$" + String.valueOf(price));
+                colourNumber.setText(String.valueOf(colour));
 
                 // ... and so on
             } else {

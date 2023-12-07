@@ -13,6 +13,12 @@
         <item>Silver</item>
         <!-- Add more options as needed -->
     </string-array>
+    <string-array name="quantity_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <!-- Add more options as needed -->
+    </string-array>
     <string name="large_text">
         "Material is the metaphor.\n\n"
     </string>
