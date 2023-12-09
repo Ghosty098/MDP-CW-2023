@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,7 +18,7 @@ public class DetailSparePart extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String sparePartId = "sparePart1";
-    Button btnSold;
+    Button btnSold, btnChangePrice;
     Long quantity;
 
     ImageButton btnBack;
@@ -30,6 +32,7 @@ public class DetailSparePart extends AppCompatActivity {
         // Initialize UI components
         btnBack = findViewById(R.id.back);
         btnSold = findViewById(R.id.soldBtn);
+        btnChangePrice = findViewById(R.id.changePriceBtn);
         textView3 = findViewById(R.id.textView3);
         locationTextView = findViewById(R.id.location);
         qtyNumberTextView = findViewById(R.id.qtyNumber);
@@ -98,7 +101,39 @@ public class DetailSparePart extends AppCompatActivity {
                 qtyNumberTextView.setText(String.valueOf(quantity - 1));
             }
         });
+        btnChangePrice.setOnClickListener(v -> showChangePriceDialog(sparePartRef));
+
     }
+    private void showChangePriceDialog(DocumentReference sparePartRef) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Price");
+
+        // Create EditText to input the new price
+        final EditText input = new EditText(this);
+        input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            // Get the new price from the input field
+            String newPriceStr = input.getText().toString();
+            if (!newPriceStr.isEmpty()) {
+                double newPrice = Double.parseDouble(newPriceStr);
+
+                // Update the price in Firestore
+                updatePrice(sparePartRef, newPrice);
+
+                // Update the displayed price in the UI
+                priceNumberTextView.setText("$" + newPrice);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+
 
     private void decreaseQuantity(DocumentReference sparePartRef, long currentQuantity) {
         // Decrease the quantity by 1 in Firestore
@@ -114,4 +149,13 @@ public class DetailSparePart extends AppCompatActivity {
                     });
         }
     }
+
+    private void updatePrice(DocumentReference sparePartRef, double newPrice) {
+        sparePartRef.update("Price", newPrice)
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "Price updated successfully"))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error updating price", e));
+    }
+
+
+
 }
