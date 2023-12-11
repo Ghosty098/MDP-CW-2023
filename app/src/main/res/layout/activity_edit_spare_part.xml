@@ -150,7 +150,7 @@
         android:layout_width="340dp"
         android:layout_height="60dp"
         android:background="@drawable/blue2rect"
-        app:layout_constraintBottom_toTopOf="@+id/addSpareBtn"
+        app:layout_constraintBottom_toTopOf="@+id/editSpareBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.436"
         app:layout_constraintStart_toStartOf="parent"

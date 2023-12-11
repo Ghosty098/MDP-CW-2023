@@ -27,6 +27,12 @@ public class HomePage extends AppCompatActivity {
         finish();
     }
 
+    public void toDetailSparePart2(View view){
+        Intent intent = new Intent(getApplicationContext(), DetailSparePart2.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
