@@ -46,7 +46,7 @@ public class QRPage extends AppCompatActivity {
 
     private void scanQrCode() {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Volume up");
+        options.setPrompt("Scanning QR Code"); // change this message
         options.setBeepEnabled(true);
         options.setOrientationLocked(true); //optional
         options.setCaptureActivity(CameraCapture.class);
