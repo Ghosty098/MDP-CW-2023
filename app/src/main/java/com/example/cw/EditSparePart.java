@@ -39,6 +39,7 @@ public class EditSparePart extends AppCompatActivity {
         editPrice = findViewById(R.id.priceEditNumber);
         carPart = findViewById(R.id.partName);
         editColour = findViewById(R.id.colourPartEdit);
+        btnEdit = findViewById(R.id.editSpareBtn);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -86,5 +87,28 @@ public class EditSparePart extends AppCompatActivity {
         });
 
         Log.d("Firestore", "After Firestore retrieval");
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve new values from UI components
+                String newQty = editQty.getText().toString();
+                String newPrice = editPrice.getText().toString();
+                String newColour = editColour.getText().toString();
+
+                // Update the Firestore document with new values
+                sparePartRef.update(
+                        "Quantity", Long.parseLong(newQty),
+                        "Price", Double.parseDouble(newPrice),
+                        "Colour", newColour
+                ).addOnSuccessListener(aVoid -> {
+                    Log.d("Firestore", "Document updated successfully");
+                    // Optionally, you can perform any additional actions after a successful update
+                }).addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error updating document", e);
+                    // Handle errors during the update
+                });
+            }
+        });
     }
 }
