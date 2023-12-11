@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,24 +23,23 @@ import com.google.firebase.firestore.DocumentReference;
 public class EditSparePart extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String sparePartId = "sparePart_1702288971024";
     ImageButton btnBack;
-    Spinner spinnerColour;
     Button btnEdit;
+    EditText editQty, editPrice, editColour;
+    Long quantity;
+    TextView carPart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_spare_part);
-        spinnerColour = findViewById(R.id.colourPartSpinner);
         btnBack = findViewById(R.id.back);
+        editQty = findViewById(R.id.qtyEditNumber);
+        editPrice = findViewById(R.id.priceEditNumber);
+        carPart = findViewById(R.id.partName);
+        editColour = findViewById(R.id.colourPartEdit);
 
-        ArrayAdapter<CharSequence> adapterColour = ArrayAdapter.createFromResource(
-                this,
-                R.array.car_colour_options,
-                android.R.layout.simple_spinner_item
-        );
-        adapterColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerColour.setAdapter(adapterColour);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +51,40 @@ public class EditSparePart extends AppCompatActivity {
         });
 
         Log.d("Firestore", "Before Firestore retrieval");
-        //DocumentReference sparePartRef = db.collection("SpareParts").document(sparePartId);
+        DocumentReference sparePartRef = db.collection("SpareParts").document(sparePartId);
 
+        sparePartRef.get().addOnSuccessListener(documentSnapshot -> {
+            Log.d("Firestore", "Inside Firestore onSuccess");
+            if (documentSnapshot.exists()) {
+                // Retrieve data
+                String name = documentSnapshot.getString("Car Part");
+                String location = documentSnapshot.getString("Location");
+                quantity = documentSnapshot.getLong("Quantity");
+                double price = documentSnapshot.getDouble("Price");
+                String colour = documentSnapshot.getString("Colour");
+
+                // Log the retrieved values
+                Log.d("Firestore", "Name: " + name);
+                Log.d("Firestore", "Location: " + location);
+                Log.d("Firestore", "Quantity: " + quantity);
+                Log.d("Firestore", "Price: " + price);
+
+                // Now you can use these values to populate your UI components
+                carPart.setText(name);
+                editQty.setText(String.valueOf(quantity));
+                editPrice.setText("$" + String.valueOf(price));
+                editColour.setText(String.valueOf(colour));
+
+                // ... and so on
+            } else {
+                // Document does not exist
+                Log.d("Firestore", "Document does not exist");
+            }
+        }).addOnFailureListener(e -> {
+            // Handle errors
+            Log.e("Firestore", "Firestore retrieval failure", e);
+        });
+
+        Log.d("Firestore", "After Firestore retrieval");
     }
 }
