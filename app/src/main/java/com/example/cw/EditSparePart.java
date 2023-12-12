@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -73,7 +74,7 @@ public class EditSparePart extends AppCompatActivity {
                 // Now you can use these values to populate your UI components
                 carPart.setText(name);
                 editQty.setText(String.valueOf(quantity));
-                editPrice.setText("$" + String.valueOf(price));
+                editPrice.setText( String.valueOf(price));
                 editColour.setText(String.valueOf(colour));
 
                 // ... and so on
@@ -103,12 +104,16 @@ public class EditSparePart extends AppCompatActivity {
                         "Colour", newColour
                 ).addOnSuccessListener(aVoid -> {
                     Log.d("Firestore", "Document updated successfully");
+
                     // Optionally, you can perform any additional actions after a successful update
                 }).addOnFailureListener(e -> {
                     Log.e("Firestore", "Error updating document", e);
+
                     // Handle errors during the update
                 });
             }
+
         });
+
     }
 }
