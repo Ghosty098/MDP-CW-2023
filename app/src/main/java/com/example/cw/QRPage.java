@@ -16,7 +16,7 @@ import com.journeyapps.barcodescanner.ScanOptions;
 
 public class QRPage extends AppCompatActivity {
     Button btnCamera;
-    ImageButton btnBack;
+    ImageButton btnBack, btnQRGenerator;
 
 
     @Override
@@ -24,11 +24,21 @@ public class QRPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrpage);
         btnBack = findViewById(R.id.back);
+        btnQRGenerator = findViewById(R.id.qrGenerator);
         btnCamera = findViewById(R.id.openCamera);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), LogIn.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnQRGenerator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), QRGenerator.class);
                 startActivity(intent);
                 finish();
             }

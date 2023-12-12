@@ -20,6 +20,9 @@
         android:theme="@style/Theme.CW"
         tools:targetApi="31">
         <activity
+            android:name=".QRGenerator"
+            android:exported="false" />
+        <activity
             android:name=".DetailSparePart3"
             android:exported="false" />
         <activity

@@ -106,6 +106,8 @@
         android:layout_width="380dp"
         android:layout_height="60dp"
         android:background="@drawable/blue2rect"
+        android:hint="Enter Spare Part Name..."
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -188,6 +190,8 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="17dp"
+        android:hint="Location..."
+        android:paddingLeft="10dp"
         android:background="@drawable/blue2rect"
         app:layout_constraintBottom_toTopOf="@+id/textView21"
         app:layout_constraintEnd_toEndOf="parent"
