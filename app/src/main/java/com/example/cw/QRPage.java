@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -17,6 +18,12 @@ import com.journeyapps.barcodescanner.ScanOptions;
 public class QRPage extends AppCompatActivity {
     Button btnCamera;
     ImageButton btnBack, btnQRGenerator;
+
+    String qrCode1 = "QRBumper";
+    String qrCode2 = "QRTurbo";
+    String qrCode3 = "QRDoor";
+
+
 
 
     @Override
@@ -64,16 +71,28 @@ public class QRPage extends AppCompatActivity {
     }
 
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
-        if(result.getContents()!=null){
-            AlertDialog.Builder builder = new AlertDialog.Builder(QRPage.this);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).show();
+        if (result.getContents() != null) {
+            String scannedData = result.getContents();
+
+            // Check the scanned content against identifiers
+            if (scannedData.equals(qrCode1)) {
+                // Open Activity A
+                Intent intentA = new Intent(QRPage.this, DetailSparePart.class);
+                startActivity(intentA);
+            } else if (scannedData.equals(qrCode2)) {
+                // Open Activity B
+                Intent intentB = new Intent(QRPage.this, DetailSparePart2.class);
+                startActivity(intentB);
+            }
+            else if (scannedData.equals(qrCode3)) {
+                // Open Activity B
+                Intent intentC = new Intent(QRPage.this, DetailSparePart3.class);
+                startActivity(intentC);
+            }
+            else {
+                // Handle other cases or show an error message
+                Toast.makeText(QRPage.this, "Invalid QR code data", Toast.LENGTH_SHORT).show();
+            }
         }
     });
 }
