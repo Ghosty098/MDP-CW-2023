@@ -28,6 +28,8 @@ public class AddSparePart extends AppCompatActivity {
 
     Spinner colourPartSpinner, quantitySpinner;
 
+    Button btnQR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class AddSparePart extends AppCompatActivity {
         spinnerColourPart = findViewById(R.id.colourPartSpinner);
         spinnerQuantity = findViewById(R.id.quantitySpinner);
         carPart = findViewById(R.id.carPart);
+        btnQR = findViewById(R.id.createQRBtn);
 
         //Adapter for the spinner of the colours
         ArrayAdapter<CharSequence> adapterColour = ArrayAdapter.createFromResource(
@@ -61,6 +64,15 @@ public class AddSparePart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AdminPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), QRGenerator.class);
                 startActivity(intent);
                 finish();
             }
