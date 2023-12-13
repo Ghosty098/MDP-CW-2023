@@ -21,6 +21,57 @@ public class HomePage extends AppCompatActivity {
     ImageButton btnQr;
     FirebaseUser user;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home_page);
+
+        auth = FirebaseAuth.getInstance();
+        btnAdmin = findViewById(R.id.admin);
+        btnQr = findViewById(R.id.qrCode);
+        btnLogOut = findViewById(R.id.logOut);
+        user = auth.getCurrentUser();
+
+        //This checks if any users are currently logged in, if not it sends the user to the Log-in Page
+        if(user == null){
+            Intent intent = new Intent(getApplicationContext(), LogIn.class);
+            startActivity(intent);
+            finish();
+        }
+
+        //Button OnClick listener for the Log-out button
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LogIn.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //Button OnClick listener for the Admin button
+        btnAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AdminPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //Button OnClick listener for the QR Code button
+        btnQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), QRPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    //These methods are to redirect the user to the specific pages after clicking on the CardView
     public void toDetailSparePart(View view){
         Intent intent = new Intent(getApplicationContext(), DetailSparePart.class);
         startActivity(intent);
@@ -39,46 +90,4 @@ public class HomePage extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
-        auth = FirebaseAuth.getInstance();
-        btnAdmin = findViewById(R.id.admin);
-        btnQr = findViewById(R.id.qrCode);
-        btnLogOut = findViewById(R.id.logOut);
-        user = auth.getCurrentUser();
-        if(user == null){
-            Intent intent = new Intent(getApplicationContext(), LogIn.class);
-            startActivity(intent);
-            finish();
-        }
-
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LogIn.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        btnAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AdminPage.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        btnQr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), QRPage.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
 }

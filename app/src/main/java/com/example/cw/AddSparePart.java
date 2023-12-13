@@ -24,6 +24,9 @@ public class AddSparePart extends AppCompatActivity {
     ImageButton btnBack;
     Spinner spinnerColourPart, spinnerQuantity;
     EditText carPart;
+    EditText editTextPrice, editTextCarPart, editTextLocation;
+
+    Spinner colourPartSpinner, quantitySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class AddSparePart extends AppCompatActivity {
         spinnerQuantity = findViewById(R.id.quantitySpinner);
         carPart = findViewById(R.id.carPart);
 
+        //Adapter for the spinner of the colours
         ArrayAdapter<CharSequence> adapterColour = ArrayAdapter.createFromResource(
                 this,
                 R.array.car_colour_options,
@@ -43,6 +47,7 @@ public class AddSparePart extends AppCompatActivity {
         adapterColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerColourPart.setAdapter(adapterColour);
 
+        //Adapter for the spinner of the quantity
         ArrayAdapter<CharSequence> adapterQuantity = ArrayAdapter.createFromResource(
                 this,
                 R.array.quantity_options,
@@ -51,6 +56,7 @@ public class AddSparePart extends AppCompatActivity {
         adapterQuantity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerQuantity.setAdapter(adapterQuantity);
 
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,20 +66,17 @@ public class AddSparePart extends AppCompatActivity {
             }
         });
 
-        // Add the rest of your existing code here...
-        // ...
 
-        // Initialize UI components
-        EditText editTextPrice = findViewById(R.id.price);
-        EditText editTextCarPart = findViewById(R.id.carPart);
-        EditText editTextLocation = findViewById(R.id.carLocation);
-        Spinner colourPartSpinner = findViewById(R.id.colourPartSpinner);
-        Spinner quantitySpinner = findViewById(R.id.quantitySpinner);
+        editTextPrice = findViewById(R.id.price);
+        editTextCarPart = findViewById(R.id.carPart);
+        editTextLocation = findViewById(R.id.carLocation);
+        colourPartSpinner = findViewById(R.id.colourPartSpinner);
+        quantitySpinner = findViewById(R.id.quantitySpinner);
 
-      //  TextView textViewQuantity = findViewById(R.id.textView23);
+
         Button addButton = findViewById(R.id.addSpareBtn);
 
-        // Set click listener for the "Add Spare Part" button
+        //Button OnClick listener for the Add button
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +101,7 @@ public class AddSparePart extends AppCompatActivity {
         });
     }
 
-    // Add the addSparePart method here...
+    //This method adds the spare part to the database
     private void addSparePart(Map<String, Object> sparePart) {
         // Access a Cloud Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -110,19 +113,16 @@ public class AddSparePart extends AppCompatActivity {
         db.collection("SpareParts")
                 .document(customDocumentId)
                 .set(sparePart)
-                .addOnSuccessListener(aVoid -> {
-                    // Handle success (optional)
+                .addOnSuccessListener(aVoid -> { // Handle success
                     showToast("Spare part added successfully");
                     Log.d("MSG","Part added successful");
                 })
-                .addOnFailureListener(e -> {
-                    // Handle failure (optional)
+                .addOnFailureListener(e -> { // Handle failure
                     showToast("Failed to add spare part");
                 });
     }
 
     private void showToast(String message) {
-        // Helper method to show Toast messages
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

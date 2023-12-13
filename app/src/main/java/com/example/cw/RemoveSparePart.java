@@ -31,6 +31,7 @@ public class RemoveSparePart extends AppCompatActivity {
         btnDelete3 = findViewById(R.id.delete3);
 
 
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +41,7 @@ public class RemoveSparePart extends AppCompatActivity {
             }
         });
 
+        //Button OnClick listener for the Delete-1 button
         btnDelete1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +50,7 @@ public class RemoveSparePart extends AppCompatActivity {
             }
         });
 
+        //Button OnClick listener for the Delete-2 button
         btnDelete2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +59,7 @@ public class RemoveSparePart extends AppCompatActivity {
             }
         });
 
+        //Button OnClick listener for the Delete-3 button
         btnDelete3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +68,9 @@ public class RemoveSparePart extends AppCompatActivity {
             }
         });
     }
+
+    //This method deletes the spare part from the database
     private void deleteSparePartFromDatabase(String sparePartId) {
-        // Construct the DocumentReference for the SpareParts collection
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         DocumentReference sparePartRef = db.collection("SpareParts").document(sparePartId);
@@ -73,18 +78,14 @@ public class RemoveSparePart extends AppCompatActivity {
         // Delete the spare part from the database
         sparePartRef.delete()
                 .addOnSuccessListener(aVoid -> {
-                    // Successfully deleted the document
-                    // Show a Toast message
                     showToast("Spare part added successfully");
-                    // You can add additional logic here if needed
+
                 })
                 .addOnFailureListener(e -> {
-                    // Handle errors here
                     showToast("Failed to add spare part");
                 });
     }
     private void showToast(String message) {
-        // Helper method to show Toast messages
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

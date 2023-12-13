@@ -16,8 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DetailSparePart2 extends AppCompatActivity {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String sparePartId = "sparePart_1702288971024";
+    FirebaseFirestore db = FirebaseFirestore.getInstance(); //Initialise a call to connect to Firestore
+    String sparePartId = "sparePart_1702288971024"; //Specific spare part ID in the firebase
     Button btnSold, btnChangePrice;
     Long quantity;
 
@@ -29,7 +29,6 @@ public class DetailSparePart2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_spare_part2);
 
-        // Initialize UI components
         btnBack = findViewById(R.id.back);
         btnSold = findViewById(R.id.soldBtn);
         btnChangePrice = findViewById(R.id.changePriceBtn);
@@ -39,7 +38,7 @@ public class DetailSparePart2 extends AppCompatActivity {
         priceNumberTextView = findViewById(R.id.priceNumber);
         colourNumber = findViewById(R.id.colourNumber);
 
-        // Set up the back button click listener
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,21 +76,21 @@ public class DetailSparePart2 extends AppCompatActivity {
                 priceNumberTextView.setText("$" + String.valueOf(price));
                 colourNumber.setText(String.valueOf(colour));
 
-                // ... and so on
             } else {
-                // Document does not exist
-                Log.d("Firestore", "Document does not exist");
+                Log.d("Firestore", "Document does not exist"); // Document does not exist
             }
         }).addOnFailureListener(e -> {
-            // Handle errors
-            Log.e("Firestore", "Firestore retrieval failure", e);
+
+            Log.e("Firestore", "Firestore retrieval failure", e); // Handling errors
         });
 
         Log.d("Firestore", "After Firestore retrieval");
 
-        // Set click listener for the "Sold" button
+        //Button OnClick listener for the Sold button
         btnSold.setOnClickListener(new View.OnClickListener() {
 
+
+            //This method, decrements the quantity for the spare part when sold button is clicked
             @Override
             public void onClick(View v) {
                 // Decrease the quantity in Firestore
@@ -104,6 +103,8 @@ public class DetailSparePart2 extends AppCompatActivity {
         btnChangePrice.setOnClickListener(v -> showChangePriceDialog(sparePartRef));
 
     }
+
+    //This method allows the user to change price of spare part
     private void showChangePriceDialog(DocumentReference sparePartRef) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Change Price");
@@ -113,7 +114,7 @@ public class DetailSparePart2 extends AppCompatActivity {
         input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setView(input);
 
-        // Set up the buttons
+        // Prompting the user to enter the new price
         builder.setPositiveButton("OK", (dialog, which) -> {
             // Get the new price from the input field
             String newPriceStr = input.getText().toString();
@@ -135,6 +136,7 @@ public class DetailSparePart2 extends AppCompatActivity {
 
 
 
+    //This method sends the new quantity to the database
     private void decreaseQuantity(DocumentReference sparePartRef, long currentQuantity) {
         // Decrease the quantity by 1 in Firestore
         if (currentQuantity > 0) {
@@ -150,6 +152,7 @@ public class DetailSparePart2 extends AppCompatActivity {
         }
     }
 
+    //This method sends the updated price to the database
     private void updatePrice(DocumentReference sparePartRef, double newPrice) {
         sparePartRef.update("Price", newPrice)
                 .addOnSuccessListener(aVoid -> Log.d("Firestore", "Price updated successfully"))

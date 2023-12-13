@@ -16,7 +16,10 @@ public class StatisticsPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics_page);
+
         btnBack = findViewById(R.id.back);
+
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

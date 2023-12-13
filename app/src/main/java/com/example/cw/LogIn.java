@@ -29,10 +29,12 @@ public class LogIn extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+    String email, password;
+
+    //This method checks if the user has already signed in prior. if yes, then it will go straight to Home page
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), HomePage.class);
@@ -44,18 +46,19 @@ public class LogIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_log_in);
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         btnLogIn = findViewById(R.id.btnLogin);
 
+        //When log-in button is clicked, this checks if the user has entered the email and password required
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
 
@@ -68,6 +71,7 @@ public class LogIn extends AppCompatActivity {
                     return;
                 }
 
+                //This checks if the details entered by the user is correct.
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override

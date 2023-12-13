@@ -30,9 +30,12 @@ public class QRPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrpage);
+
         btnBack = findViewById(R.id.back);
         btnQRGenerator = findViewById(R.id.qrGenerator);
         btnCamera = findViewById(R.id.openCamera);
+
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +45,7 @@ public class QRPage extends AppCompatActivity {
             }
         });
 
+        //Button OnClick listener for the QR Generator button
         btnQRGenerator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,7 @@ public class QRPage extends AppCompatActivity {
             }
         });
 
+        //Button OnClick listener for the Camera button
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,31 +66,31 @@ public class QRPage extends AppCompatActivity {
 
     }
 
+    //This method is responsible for the Scanning of codes
     private void scanQrCode() {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Scanning QR Code"); // change this message
+        options.setPrompt("Scanning QR Code");
         options.setBeepEnabled(true);
-        options.setOrientationLocked(true); //optional
+        options.setOrientationLocked(true);
         options.setCaptureActivity(CameraCapture.class);
-        barLauncher.launch(options);
+        barLauncher.launch(options); //launches the result of the QR code
     }
 
+
+    //This barLauncher, opens the activities encoded in the QR code
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
             String scannedData = result.getContents();
 
             // Check the scanned content against identifiers
             if (scannedData.equals(qrCode1)) {
-                // Open Activity A
                 Intent intentA = new Intent(QRPage.this, DetailSparePart.class);
                 startActivity(intentA);
             } else if (scannedData.equals(qrCode2)) {
-                // Open Activity B
                 Intent intentB = new Intent(QRPage.this, DetailSparePart2.class);
                 startActivity(intentB);
             }
             else if (scannedData.equals(qrCode3)) {
-                // Open Activity B
                 Intent intentC = new Intent(QRPage.this, DetailSparePart3.class);
                 startActivity(intentC);
             }

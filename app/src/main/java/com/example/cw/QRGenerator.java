@@ -35,6 +35,7 @@ public class QRGenerator extends AppCompatActivity {
         editPartName = findViewById(R.id.carPartName);
         imgQR = findViewById(R.id.qrViewer);
 
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,11 +45,13 @@ public class QRGenerator extends AppCompatActivity {
             }
         });
 
+        //Button OnClick listener for the Generate QR button
         btnGenerate.setOnClickListener(v -> {
             generateQR();
         });
     }
 
+    //This method generates the QR code with the unique identifier encoded
     private void generateQR() {
         String text = editPartName.getText().toString().trim();
         MultiFormatWriter writer = new MultiFormatWriter();

@@ -35,6 +35,7 @@ public class EditSparePart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_spare_part);
+
         btnBack = findViewById(R.id.back);
         editQty = findViewById(R.id.qtyEditNumber);
         editPrice = findViewById(R.id.priceEditNumber);
@@ -43,6 +44,7 @@ public class EditSparePart extends AppCompatActivity {
         btnEdit = findViewById(R.id.editSpareBtn);
 
 
+        //Button OnClick listener for the Back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +55,7 @@ public class EditSparePart extends AppCompatActivity {
         });
 
         Log.d("Firestore", "Before Firestore retrieval");
+
         DocumentReference sparePartRef = db.collection("SpareParts").document(sparePartId);
 
         sparePartRef.get().addOnSuccessListener(documentSnapshot -> {
@@ -71,24 +74,22 @@ public class EditSparePart extends AppCompatActivity {
                 Log.d("Firestore", "Quantity: " + quantity);
                 Log.d("Firestore", "Price: " + price);
 
-                // Now you can use these values to populate your UI components
+                // Connect the values from database to the UI components
                 carPart.setText(name);
                 editQty.setText(String.valueOf(quantity));
                 editPrice.setText( String.valueOf(price));
                 editColour.setText(String.valueOf(colour));
 
-                // ... and so on
             } else {
-                // Document does not exist
-                Log.d("Firestore", "Document does not exist");
+                Log.d("Firestore", "Document does not exist"); // Document does not exist
             }
         }).addOnFailureListener(e -> {
-            // Handle errors
-            Log.e("Firestore", "Firestore retrieval failure", e);
+            Log.e("Firestore", "Firestore retrieval failure", e); // Handling errors
         });
 
         Log.d("Firestore", "After Firestore retrieval");
 
+        //Button OnClick listener for the Back button
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,15 +106,21 @@ public class EditSparePart extends AppCompatActivity {
                 ).addOnSuccessListener(aVoid -> {
                     Log.d("Firestore", "Document updated successfully");
 
-                    // Optionally, you can perform any additional actions after a successful update
+                    // Show Toast for successful update
+                    showToast("Document updated successfully");
+
                 }).addOnFailureListener(e -> {
                     Log.e("Firestore", "Error updating document", e);
 
-                    // Handle errors during the update
+                    // Show Toast for update failure
+                    showToast("Failed to update document");
+
                 });
             }
-
         });
+    }
 
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
